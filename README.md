@@ -1,42 +1,26 @@
-<div id="languages">
-  <!-- Language icons will be dynamically added here -->
+<div>
+  <img src="https://github.com/devicons/devicon/blob/master/icons/javascript/javascript-original.svg" title="JavaScript" alt="JavaScript" width="40" height="40"/>&nbsp;
+  <img src="https://github.com/devicons/devicon/blob/master/icons/java/java-original-wordmark.svg" title="Java" alt="Java" width="40" height="40"/>&nbsp;
+  <img src="https://github.com/devicons/devicon/blob/master/icons/react/react-original-wordmark.svg" title="React" alt="React" width="40" height="40"/>&nbsp;
+  <img src="https://github.com/devicons/devicon/blob/master/icons/react/react-original.svg" title="React Native" alt="React Native" width="40" height="40"/>&nbsp;
+  <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/laravel/laravel-original-wordmark.svg" title="Laravel" alt="Laravel" width="40" height="40" />
+  <img src="https://github.com/devicons/devicon/blob/master/icons/yii/yii-original-wordmark.svg" title="Yii" alt="Yii" width="40" height="40"/>&nbsp;
+  <img src="https://github.com/devicons/devicon/blob/master/icons/firebase/firebase-plain-wordmark.svg" title="Firebase" alt="Firebase" width="40" height="40"/>&nbsp;
+  <img src="https://github.com/devicons/devicon/blob/master/icons/mysql/mysql-original-wordmark.svg" title="MySQL"  alt="MySQL" width="40" height="40"/>&nbsp;
+  <img src="https://github.com/devicons/devicon/blob/master/icons/git/git-original-wordmark.svg" title="Git" alt="Git" width="40" height="40"/>&nbsp;
+
+  <!-- PHP -->
+  <img src="https://github.com/devicons/devicon/blob/master/icons/php/php-original.svg" title="PHP" alt="PHP" width="40" height="40"/>&nbsp;
+
+  <!-- C -->
+  <img src="https://github.com/devicons/devicon/blob/master/icons/c/c-original.svg" title="C" alt="C" width="40" height="40"/>&nbsp;
+
+  <!-- C++ -->
+  <img src="https://github.com/devicons/devicon/blob/master/icons/cplusplus/cplusplus-original.svg" title="C++" alt="C++" width="40" height="40"/>&nbsp;
+
+  <!-- Python -->
+  <img src="https://github.com/devicons/devicon/blob/master/icons/python/python-original.svg" title="Python" alt="Python" width="40" height="40"/>&nbsp;
+
+  <!-- Node.js -->
+  <img src="https://github.com/devicons/devicon/blob/master/icons/nodejs/nodejs-original-wordmark.svg" title="Node.js" alt="Node.js" width="40" height="40"/>&nbsp;
 </div>
-
-<script>
-  // Function to fetch repository data from GitHub API
-  async function fetchRepoData(language) {
-    const response = await fetch(`https://api.github.com/search/repositories?q=language:${language}`);
-    const data = await response.json();
-    return data.total_count;
-  }
-
-  // List of languages
-  const languages = ["JavaScript", "Java", "React", "React Native", "Laravel", "PHP", "Firebase", "MySQL", "Git", "Python", "C", "C++", "Node.js"];
-
-  // Fetch repository data for each language and calculate total count
-  Promise.all(languages.map(language => fetchRepoData(language)))
-    .then(repoCounts => {
-      const totalCount = repoCounts.reduce((acc, curr) => acc + curr, 0);
-
-      // Calculate percentages
-      const percentages = {};
-      languages.forEach((language, index) => {
-        percentages[language] = (repoCounts[index] / totalCount) * 100;
-      });
-
-      // Sort languages by percentage
-      const sortedLanguages = languages.sort((a, b) => percentages[b] - percentages[a]);
-
-      // Display rank
-      sortedLanguages.forEach((language, index) => {
-        const percentage = percentages[language].toFixed(2);
-        const rank = index + 1;
-        console.log(`${rank}. ${language}: ${percentage}%`);
-        // Append language icons to the HTML
-        document.getElementById('languages').innerHTML += `
-          <img src="https://github.com/devicons/devicon/blob/master/icons/${language.toLowerCase()}/${language.toLowerCase()}-original.svg" title="${language}" alt="${language}" width="40" height="40"/>&nbsp;
-        `;
-      });
-    })
-    .catch(error => console.error(error));
-</script>
